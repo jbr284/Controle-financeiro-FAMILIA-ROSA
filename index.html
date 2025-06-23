@@ -1,394 +1,306 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Controle financeiro - FAMÍLIA ROSA</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      padding: 20px;
-    }
-
-    header {
-      background-color: #4CAF50;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      text-transform: uppercase;
-    }
-
-    .filters {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .filters select {
-      padding: 10px;
-      margin: 5px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      flex: 1;
-      max-width: 120px;
-    }
-
-    .filters > select {
-      max-width: 120px;
-    }
-
-    .dashboard {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px;
-    }
-
-    .add-transaction, .summary {
-      width: 48%;
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h2, .add-transaction label, .add-transaction button {
-      color: black;
-    }
-
-    .add-transaction form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .add-transaction label, .add-transaction input, .add-transaction select, .add-transaction button {
-      margin-bottom: 10px;
-    }
-
-    .add-transaction input, .add-transaction select, .add-transaction button {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-
-    .add-transaction button {
-      background-color: #4CAF50;
-      color: white;
-      cursor: pointer;
-    }
-
-    .add-transaction button:hover {
-      background-color: #45a049;
-    }
-
-    .transactions-table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
-
-    .transactions-table th, .transactions-table td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-
-    .transactions-table th {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .transactions-table td {
-      background-color: #f9f9f9;
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; padding: 20px; }
+    header { background-color: #4CAF50; color: white; text-align: center; padding: 20px; text-transform: uppercase; }
+    .filters { display: flex; justify-content: space-between; margin: 20px 0; gap: 10px; }
+    .filters select { padding: 10px; border-radius: 4px; border: 1px solid #ddd; flex: 1; max-width: 120px; }
+    .dashboard { display: flex; justify-content: space-between; padding: 20px; }
+    .add-transaction, .summary { width: 48%; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .add-transaction form { display: flex; flex-direction: column; }
+    .add-transaction label, .add-transaction input, .add-transaction select, .add-transaction button { margin-bottom: 10px; }
+    .add-transaction input, .add-transaction select, .add-transaction button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+    .add-transaction button { background-color: #4CAF50; color: white; cursor: pointer; }
+    .add-transaction button:hover { background-color: #45a049; }
+    .transactions-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+    .transactions-table th, .transactions-table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+    .transactions-table th { background-color: #4CAF50; color: white; }
+    .transactions-table td { background-color: #f9f9f9; }
+    footer { text-align: center; padding: 10px; background-color: #4CAF50; color: white; position: fixed; width: 100%; bottom: 0; }
     @media (max-width: 768px) {
-      .dashboard {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .summary, .add-transaction {
-        width: 100%;
-      }
-
-      .filters {
-        flex-direction: column;
-        align-items: center;
-      }
+      .dashboard { flex-direction: column; align-items: center; }
+      .summary, .add-transaction { width: 100%; }
+      .filters { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Controle financeiro - FAMÍLIA ROSA</h1>
-  </header>
+<header>
+  <h1>Controle financeiro - FAMÍLIA ROSA</h1>
+</header>
 
-  <!-- Campos fixos para seleção de Ano, Mês -->
-  <div class="filters">
-    <select id="ano">
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-      <option value="2027">2027</option>
-    </select>
+<div class="filters">
+  <select id="ano">
+    <option value="2025">2025</option>
+    <option value="2026">2026</option>
+    <option value="2027">2027</option>
+  </select>
+  <select id="mes">
+    <option value="1">Janeiro</option>
+    <option value="2">Fevereiro</option>
+    <option value="3">Março</option>
+    <option value="4">Abril</option>
+    <option value="5">Maio</option>
+    <option value="6">Junho</option>
+    <option value="7">Julho</option>
+    <option value="8">Agosto</option>
+    <option value="9">Setembro</option>
+    <option value="10">Outubro</option>
+    <option value="11">Novembro</option>
+    <option value="12">Dezembro</option>
+  </select>
+</div>
 
-    <select id="mes">
-      <option value="1">Janeiro</option>
-      <option value="2">Fevereiro</option>
-      <option value="3">Março</option>
-      <option value="4">Abril</option>
-      <option value="5">Maio</option>
-      <option value="6">Junho</option>
-      <option value="7">Julho</option>
-      <option value="8">Agosto</option>
-      <option value="9">Setembro</option>
-      <option value="10">Outubro</option>
-      <option value="11">Novembro</option>
-      <option value="12">Dezembro</option>
-    </select>
+<div class="dashboard">
+  <div class="add-transaction">
+    <h2>Adicionar Transação</h2>
+    <form id="form-transacao">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" name="tipo">
+        <option value="receita">Receita</option>
+        <option value="despesa">Despesa</option>
+      </select>
+      <label for="descricao">Descrição</label>
+      <input type="text" id="descricao" required />
+      <label for="valor">Valor</label>
+      <input type="number" id="valor" step="0.01" min="0" required />
+      <label for="categoria">Categoria</label>
+      <input type="text" id="categoria" required />
+      <label for="dia">Dia</label>
+      <select id="dia"></select>
+      <button type="submit">Adicionar</button>
+    </form>
   </div>
-
-  <div class="dashboard">
-    <div class="add-transaction">
-      <h2>Adicionar Transação</h2>
-      <form id="form-transacao">
-        <label for="tipo">Tipo</label>
-        <select id="tipo" name="tipo">
-          <option value="receita">Receita</option>
-          <option value="despesa">Despesa</option>
-        </select>
-        
-        <label for="descricao">Descrição</label>
-        <input type="text" id="descricao" name="descricao" required />
-        
-        <label for="valor">Valor</label>
-        <input type="number" id="valor" name="valor" step="0.01" min="0" required />
-        
-        <label for="categoria">Categoria</label>
-        <input type="text" id="categoria" name="categoria" required />
-        
-        <label for="dia">Dia</label>
-        <select id="dia" name="dia">
-          <!-- As opções serão geradas dinamicamente aqui -->
-        </select>
-
-        <button type="submit">Adicionar</button>
-      </form>
-    </div>
-
-    <div class="summary">
-      <h2>Resumo Financeiro</h2>
-      <div id="totalSaldo">Saldo: R$ 0,00</div>
-      <div id="totalReceitas">Total Receitas: R$ 0,00</div>
-      <div id="totalDespesas">Total Despesas: R$ 0,00</div>
-    </div>
+  <div class="summary">
+    <h2>Resumo Financeiro</h2>
+    <div id="totalSaldo">Saldo: R$ 0,00</div>
+    <div id="totalReceitas">Total Receitas: R$ 0,00</div>
+    <div id="totalDespesas">Total Despesas: R$ 0,00</div>
   </div>
+</div>
 
-  <div class="charts">
-    <h2>Transações</h2>
-    <table class="transactions-table">
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
-          <th>Receita</th>
-          <th>Despesa</th>
-          <th>Disponível</th>
-        </tr>
-      </thead>
-      <tbody id="tabela-transacoes">
-        <!-- As transações serão exibidas aqui -->
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4"><strong>Total</strong></td>
-          <td id="totalDespesasFooter">R$ 0,00</td>
-          <td id="totalDisponivelFooter">R$ 0,00</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+<div class="charts">
+  <h2>Transações</h2>
+  <table class="transactions-table">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Descrição</th>
+        <th>Categoria</th>
+        <th>Receita</th>
+        <th>Despesa</th>
+        <th>Disponível</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="tabela-transacoes"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"><strong>Total</strong></td>
+        <td id="totalDespesasFooter">R$ 0,00</td>
+        <td id="totalDisponivelFooter">R$ 0,00</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
-  <footer>
-    <p>&copy; 2025 Controle de Finanças</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Controle de Finanças</p>
+</footer>
 
-  <!-- Firebase Scripts para Firebase v9+ -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-    // Configuração do Firebase
-    const firebaseConfig = {
-      apiKey: "Sua_Keys", 
-      authDomain: "controle-financeiro-dos-rosa.firebaseapp.com", 
-      databaseURL: "https://controle-financeiro-dos-rosa-default-rtdb.firebaseio.com/",  
-      projectId: "controle-financeiro-dos-rosa",
-      storageBucket: "controle-financeiro-dos-rosa.appspot.com",
-      messagingSenderId: "855399792154",
-      appId: "1:855399792154:web:f4820d16c555798ddd1ba3"
-    };
+  const firebaseConfig = {
+    apiKey: "Sua_Keys",
+    authDomain: "controle-financeiro-dos-rosa.firebaseapp.com",
+    databaseURL: "https://controle-financeiro-dos-rosa-default-rtdb.firebaseio.com/",
+    projectId: "controle-financeiro-dos-rosa",
+    storageBucket: "controle-financeiro-dos-rosa.appspot.com",
+    messagingSenderId: "855399792154",
+    appId: "1:855399792154:web:f4820d16c555798ddd1ba3"
+  };
 
-    // Inicializa o Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
-    // Função para gerar o campo dia com base no mês e ano selecionados
-    function gerarDias(mes, ano) {
-      const diasNoMes = new Date(ano, mes, 0).getDate();
-      const campoDia = document.getElementById('dia');
-      campoDia.innerHTML = '';
-      for (let i = 1; i <= diasNoMes; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i;
-        campoDia.appendChild(option);
+  function formatarValor(valor) {
+    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(valor);
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  function gerarDias(mes, ano) {
+    const diasNoMes = new Date(ano, mes, 0).getDate();
+    const campoDia = document.getElementById("dia");
+    campoDia.innerHTML = "";
+    for (let i = 1; i <= diasNoMes; i++) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = i;
+      campoDia.appendChild(option);
+    }
+  }
+
+  function salvarTransacaoNoFirebase(ano, mes, transacao) {
+    const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes);
+    const newTransacaoRef = push(transacoesRef);
+    return set(newTransacaoRef, transacao);
+  }
+
+ function carregarTransacoes(ano, mes) {
+  const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes);
+  onValue(transacoesRef, (snapshot) => {
+    const transacoes = snapshot.val() || {};
+    const listaOrdenada = Object.entries(transacoes)
+      .map(([key, value]) => ({ key, ...value }))
+      .sort((a, b) => new Date(a.data) - new Date(b.data)); // <-- ordenação por data
+
+    let receitasTotal = 0;
+    let despesasTotal = 0;
+    const tabela = document.getElementById("tabela-transacoes");
+    tabela.innerHTML = "";
+
+    for (let transacao of listaOrdenada) {
+      const row = tabela.insertRow();
+      const dataFormatada = formatDate(transacao.data);
+      const valorReceita = transacao.tipo === "receita" ? transacao.valor : 0;
+      const valorDespesa = transacao.tipo === "despesa" ? transacao.valor : 0;
+      receitasTotal += valorReceita;
+      despesasTotal += valorDespesa;
+      row.innerHTML = `
+        <td>${dataFormatada}</td>
+        <td>${transacao.descricao}</td>
+        <td>${transacao.categoria}</td>
+        <td>${valorReceita ? formatarValor(valorReceita) : ""}</td>
+        <td>${valorDespesa ? formatarValor(valorDespesa) : ""}</td>
+        <td>${formatarValor(valorReceita - valorDespesa)}</td>
+        <td>
+          <button onclick="editarTransacao('${ano}', '${mes}', '${transacao.key}')">\u270F\ufe0f</button>
+          <button onclick="deletarTransacao('${ano}', '${mes}', '${transacao.key}')">\uD83D\uDDD1\uFE0F</button>
+        </td>
+      `;
+    }
+
+    const saldo = receitasTotal - despesasTotal;
+    document.getElementById("totalReceitas").textContent = `Total Receitas: ${formatarValor(receitasTotal)}`;
+    document.getElementById("totalDespesas").textContent = `Total Despesas: ${formatarValor(despesasTotal)}`;
+    document.getElementById("totalSaldo").textContent = `Saldo: ${formatarValor(saldo)}`;
+    document.getElementById("totalDespesasFooter").textContent = formatarValor(despesasTotal);
+    document.getElementById("totalDisponivelFooter").textContent = formatarValor(saldo);
+  });
+}
+
+
+  function salvarConfiguracoesFirebase(ano, mes) {
+    const usuarioId = "usuario1";
+    const refConfiguracoes = ref(database, "configuracoes/" + usuarioId);
+    set(refConfiguracoes, { ano, mes });
+  }
+
+  function carregarConfiguracoesFirebase() {
+    const usuarioId = "usuario1";
+    const refConfiguracoes = ref(database, "configuracoes/" + usuarioId);
+    onValue(refConfiguracoes, (snapshot) => {
+      const config = snapshot.val();
+      if (config) {
+        document.getElementById("ano").value = config.ano;
+        document.getElementById("mes").value = config.mes;
       }
-    }
-
-    // Função para salvar transações no Firebase
-    function salvarTransacaoNoFirebase(ano, mes, transacao) {
-      const transacoesRef = ref(database, 'transacoes/' + ano + '/' + mes);
-      const newTransacaoRef = push(transacoesRef);
-      set(newTransacaoRef, transacao);
-    }
-
-    // Função para carregar as transações do Firebase
-    function carregarTransacoes(ano, mes) {
-      const transacoesRef = ref(database, 'transacoes/' + ano + '/' + mes);
-      onValue(transacoesRef, (snapshot) => {
-        const transacoes = snapshot.val();
-        let receitasTotal = 0;
-        let despesasTotal = 0;
-        let saldoDisponivel = 0;
-
-        for (let key in transacoes) {
-          const transacao = transacoes[key];
-          if (transacao.tipo === 'receita') {
-            receitasTotal += transacao.valor;
-          } else {
-            despesasTotal += transacao.valor;
-          }
-        }
-        saldoDisponivel = receitasTotal - despesasTotal;
-
-        document.getElementById('totalSaldo').textContent = `Saldo: R$ ${saldoDisponivel.toFixed(2)}`;
-        document.getElementById('totalReceitas').textContent = `Total Receitas: R$ ${receitasTotal.toFixed(2)}`;
-        document.getElementById('totalDespesas').textContent = `Total Despesas: R$ ${despesasTotal.toFixed(2)}`;
-
-        atualizarTabela(transacoes);
-      });
-    }
-
-    // Função para atualizar a tabela com as transações
-    function atualizarTabela(transacoes) {
-      const tabela = document.getElementById("tabela-transacoes");
-      tabela.innerHTML = '';
-
-      for (let key in transacoes) {
-        const transacao = transacoes[key];
-        const row = tabela.insertRow();
-        const dataFormatada = formatDate(transacao.data); // Formatar a data no formato DD/MM/AAAA
-        row.innerHTML = `
-          <td>${dataFormatada}</td>
-          <td>${transacao.descricao}</td>
-          <td>${transacao.categoria}</td>
-          <td>${transacao.tipo === 'receita' ? `R$ ${transacao.valor.toFixed(2)}` : ''}</td>
-          <td>${transacao.tipo === 'despesa' ? `R$ ${transacao.valor.toFixed(2)}` : ''}</td>
-          <td>${(transacao.tipo === 'receita' ? transacao.valor : -transacao.valor).toFixed(2)}</td>
-        `;
-      }
-    }
-
-    // Função para formatar data no formato DD/MM/AAAA
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    }
-
-    // Função para salvar configurações no Firebase
-    function salvarConfiguracoesFirebase(ano, mes) {
-      const usuarioId = "usuario1"; // Use o ID único do usuário
-      const refConfiguracoes = ref(database, 'configuracoes/' + usuarioId);
-      set(refConfiguracoes, {
-        ano: ano,
-        mes: mes
-      });
-    }
-
-    // Função para carregar configurações do Firebase
-    function carregarConfiguracoesFirebase() {
-      const usuarioId = "usuario1"; // Use o ID único do usuário
-      const refConfiguracoes = ref(database, 'configuracoes/' + usuarioId);
-
-      onValue(refConfiguracoes, (snapshot) => {
-        const configuracoes = snapshot.val();
-
-        if (configuracoes) {
-          const anoSalvo = configuracoes.ano;
-          const mesSalvo = configuracoes.mes;
-
-          if (anoSalvo) {
-            document.getElementById("ano").value = anoSalvo;
-          }
-          if (mesSalvo) {
-            document.getElementById("mes").value = mesSalvo;
-          }
-
-          const ano = document.getElementById("ano").value;
-          const mes = document.getElementById("mes").value;
-          gerarDias(mes, ano);
-          carregarTransacoes(ano, mes);
-        }
-      });
-    }
-
-    // Evento para alterar mês ou ano
-    document.getElementById("ano").addEventListener("change", function () {
       const ano = document.getElementById("ano").value;
       const mes = document.getElementById("mes").value;
       gerarDias(mes, ano);
       carregarTransacoes(ano, mes);
-      salvarConfiguracoesFirebase(ano, mes);  // Salva as configurações no Firebase
     });
+  }
 
-    document.getElementById("mes").addEventListener("change", function () {
-      const ano = document.getElementById("ano").value;
-      const mes = document.getElementById("mes").value;
-      gerarDias(mes, ano);
-      carregarTransacoes(ano, mes);
-      salvarConfiguracoesFirebase(ano, mes);  // Salva as configurações no Firebase
-    });
+  document.getElementById("ano").addEventListener("change", () => {
+    const ano = document.getElementById("ano").value;
+    const mes = document.getElementById("mes").value;
+    gerarDias(mes, ano);
+    carregarTransacoes(ano, mes);
+    salvarConfiguracoesFirebase(ano, mes);
+  });
 
-    // Chamada inicial para carregar as configurações do Firebase
-    window.onload = function () {
-      carregarConfiguracoesFirebase();  // Carrega as configurações do Firebase
-    };
-  </script>
+  document.getElementById("mes").addEventListener("change", () => {
+    const ano = document.getElementById("ano").value;
+    const mes = document.getElementById("mes").value;
+    gerarDias(mes, ano);
+    carregarTransacoes(ano, mes);
+    salvarConfiguracoesFirebase(ano, mes);
+  });
+
+  document.getElementById("form-transacao").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const ano = document.getElementById("ano").value;
+    const mes = document.getElementById("mes").value;
+    const dia = document.getElementById("dia").value;
+    const tipo = document.getElementById("tipo").value;
+    const descricao = document.getElementById("descricao").value;
+    const valor = parseFloat(document.getElementById("valor").value);
+    const categoria = document.getElementById("categoria").value;
+    if (!descricao || isNaN(valor) || valor <= 0 || !categoria) {
+      alert("Preencha todos os campos corretamente.");
+      return;
+    }
+    const data = new Date(ano, mes - 1, dia);
+    const transacao = { tipo, descricao, valor, categoria, data: data.toISOString() };
+    const edicaoId = this.dataset.edicaoId;
+    if (edicaoId) {
+      const transacaoRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + edicaoId);
+      set(transacaoRef, transacao).then(() => {
+        delete this.dataset.edicaoId;
+        carregarTransacoes(ano, mes);
+        this.reset();
+      });
+    } else {
+      salvarTransacaoNoFirebase(ano, mes, transacao).then(() => {
+        carregarTransacoes(ano, mes);
+        this.reset();
+      });
+    }
+  });
+
+  window.editarTransacao = function (ano, mes, key) {
+    const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + key);
+    onValue(transacoesRef, (snapshot) => {
+      const transacao = snapshot.val();
+      if (transacao) {
+        document.getElementById("tipo").value = transacao.tipo;
+        document.getElementById("descricao").value = transacao.descricao;
+        document.getElementById("valor").value = transacao.valor;
+        document.getElementById("categoria").value = transacao.categoria;
+        const data = new Date(transacao.data);
+        document.getElementById("dia").value = data.getDate();
+        document.getElementById("form-transacao").dataset.edicaoId = key;
+      }
+    }, { onlyOnce: true });
+  };
+
+  window.deletarTransacao = function (ano, mes, key) {
+    if (confirm("Tem certeza que deseja excluir esta transação?")) {
+      const transacaoRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + key);
+      set(transacaoRef, null);
+    }
+  };
+
+  window.onload = () => {
+    carregarConfiguracoesFirebase();
+  };
+</script>
 </body>
 </html>
