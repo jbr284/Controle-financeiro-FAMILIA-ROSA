@@ -6,7 +6,13 @@
   <title>Controle financeiro - FAMÍLIA ROSA</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; padding: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 20px;
+      padding-bottom: 60px; /* evita que o footer cubra o conteúdo */
+    }
     header { background-color: #4CAF50; color: white; text-align: center; padding: 20px; text-transform: uppercase; }
     .filters { display: flex; justify-content: space-between; margin: 20px 0; gap: 10px; }
     .filters select { padding: 10px; border-radius: 4px; border: 1px solid #ddd; flex: 1; max-width: 120px; }
@@ -21,13 +27,20 @@
     .transactions-table th, .transactions-table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
     .transactions-table th { background-color: #4CAF50; color: white; }
     .transactions-table td { background-color: #f9f9f9; }
-    footer { text-align: center; padding: 10px; background-color: #4CAF50; color: white; position: fixed; width: 100%; bottom: 0; }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
     @media (max-width: 768px) {
       .dashboard { flex-direction: column; align-items: center; }
       .summary, .add-transaction { width: 100%; }
       .filters { flex-direction: column; align-items: center; }
-    }
-  </style>
+    }  </style>
 </head>
 <body>
 
