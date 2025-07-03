@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Controle financeiro - FAMÍLIA ROSA</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Controle financeiro - FAMÍLIA ROSA</title>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
@@ -13,7 +15,63 @@
       padding: 20px;
       padding-bottom: 60px; /* evita que o footer cubra o conteúdo */
     }
-    header { background-color: #4CAF50; color: white; text-align: center; padding: 20px; text-transform: uppercase; }
+
+    /* Tela de Login */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .login-form {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-form input {
+      padding: 12px;
+      width: 100%;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .login-form button {
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .login-form button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+
+    header { 
+      background-color: #4CAF50; 
+      color: white; 
+      text-align: center; 
+      padding: 20px; 
+      text-transform: uppercase; 
+    }
+
     .filters { display: flex; justify-content: space-between; margin: 20px 0; gap: 10px; }
     .filters select { padding: 10px; border-radius: 4px; border: 1px solid #ddd; flex: 1; max-width: 120px; }
     .dashboard { display: flex; justify-content: space-between; padding: 20px; }
@@ -36,98 +94,99 @@
       width: 100%;
       bottom: 0;
     }
-    @media (max-width: 768px) {
-      .dashboard { flex-direction: column; align-items: center; }
-      .summary, .add-transaction { width: 100%; }
-      .filters { flex-direction: column; align-items: center; }
-    }  </style>
+
+  </style>
 </head>
 <body>
-
+<!-- Tela de Login -->
+<div class="login-container" id="login-container">
+<div class="login-form">
+<h1>Bem-vindo!</h1>
+<form id="form-acesso">
+<label for="senha">Digite a senha:</label>
+<input id="senha" placeholder="Senha" required="" type="password"/>
+<button type="submit">Acessar Sistema</button>
+</form>
+<div class="error" id="error-message"></div>
+</div>
+</div>
+<!-- Sistema (Inicialmente oculto) -->
+<div class="container" id="container" style="display: none;">
 <header>
-  <h1>Controle financeiro - FAMÍLIA ROSA</h1>
+<h1>Controle financeiro - FAMÍLIA ROSA</h1>
 </header>
-
 <div class="filters">
-  <select id="ano">
-    <option value="2025">2025</option>
-    <option value="2026">2026</option>
-    <option value="2027">2027</option>
-  </select>
-  <select id="mes">
-    <option value="1">Janeiro</option>
-    <option value="2">Fevereiro</option>
-    <option value="3">Março</option>
-    <option value="4">Abril</option>
-    <option value="5">Maio</option>
-    <option value="6">Junho</option>
-    <option value="7">Julho</option>
-    <option value="8">Agosto</option>
-    <option value="9">Setembro</option>
-    <option value="10">Outubro</option>
-    <option value="11">Novembro</option>
-    <option value="12">Dezembro</option>
-  </select>
+<select id="ano">
+<option value="2025">2025</option>
+<option value="2026">2026</option>
+<option value="2027">2027</option>
+</select>
+<select id="mes">
+<option value="1">Janeiro</option>
+<option value="2">Fevereiro</option>
+<option value="3">Março</option>
+<option value="4">Abril</option>
+<option value="5">Maio</option>
+<option value="6">Junho</option>
+<option value="7">Julho</option>
+<option value="8">Agosto</option>
+<option value="9">Setembro</option>
+<option value="10">Outubro</option>
+<option value="11">Novembro</option>
+<option value="12">Dezembro</option>
+</select>
 </div>
-
 <div class="dashboard">
-  <div class="add-transaction">
-    <h2>Adicionar Transação</h2>
-    <form id="form-transacao">
-      <label for="tipo">Tipo</label>
-      <select id="tipo" name="tipo">
-        <option value="receita">Receita</option>
-        <option value="despesa">Despesa</option>
-      </select>
-      <label for="descricao">Descrição</label>
-      <input type="text" id="descricao" required />
-      <label for="valor">Valor</label>
-      <input type="number" id="valor" step="0.01" min="0" required />
-      <label for="categoria">Categoria</label>
-      <input type="text" id="categoria" required />
-      <label for="dia">Dia</label>
-      <select id="dia"></select>
-      <button type="submit">Adicionar</button>
-    </form>
-  </div>
-  <div class="summary">
-    <h2>Resumo Financeiro</h2>
-    <div id="totalSaldo">Saldo: R$ 0,00</div>
-    <div id="totalReceitas">Total Receitas: R$ 0,00</div>
-    <div id="totalDespesas">Total Despesas: R$ 0,00</div>
-  </div>
+<div class="add-transaction">
+<h2>Adicionar Transação</h2>
+<form id="form-transacao">
+<label for="tipo">Tipo</label>
+<select id="tipo" name="tipo">
+<option value="receita">Receita</option>
+<option value="despesa">Despesa</option>
+</select>
+<label for="descricao">Descrição</label>
+<input id="descricao" required="" type="text"/>
+<label for="valor">Valor</label>
+<input id="valor" min="0" required="" step="0.01" type="number"/>
+<label for="categoria">Categoria</label>
+<input id="categoria" required="" type="text"/>
+<label for="dia">Dia</label>
+<select id="dia"></select>
+<button type="submit">Adicionar</button>
+</form>
 </div>
-
+<div class="summary">
+<h2>Resumo Financeiro</h2>
+<div id="totalSaldo">Saldo: R$ 0,00</div>
+<div id="totalReceitas">Total Receitas: R$ 0,00</div>
+<div id="totalDespesas">Total Despesas: R$ 0,00</div>
+</div>
+</div>
 <div class="charts">
-  <h2>Transações</h2>
-  <table class="transactions-table">
-    <thead>
-      <tr>
-        <th>Data</th>
-        <th>Descrição</th>
-        <th>Categoria</th>
-        <th>Receita</th>
-        <th>Despesa</th>
-        <th>Disponível</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody id="tabela-transacoes"></tbody>
-    <tfoot>
-      <tr>
-        <td colspan="4"><strong>Total</strong></td>
-        <td id="totalDespesasFooter">R$ 0,00</td>
-        <td id="totalDisponivelFooter">R$ 0,00</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+<h2>Transações</h2>
+<table class="transactions-table">
+<thead>
+<tr>
+<th>Data</th>
+<th>Descrição</th>
+<th>Categoria</th>
+<th>Receita</th>
+<th>Despesa</th>
+<th>Disponível</th>
+<th>Ações</th>
+</tr>
+</thead>
+<tbody id="tabela-transacoes"></tbody>
+<tfoot>
+<tr><td colspan="3">Total</td><td id="totalReceitasFooter">R$ 0,00</td><td id="totalDespesasFooter">R$ 0,00</td><td id="totalDisponivelFooter">R$ 0,00</td><td></td></tr>
+</tfoot>
+</table>
 </div>
-
 <footer>
-  <p>&copy; 2025 Controle de Finanças</p>
+<p>© 2025 Controle de Finanças</p>
 </footer>
-
+</div>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
   import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
@@ -144,6 +203,19 @@
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
+
+  // Função para login
+  document.getElementById("form-acesso").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const senha = document.getElementById("senha").value;
+    if (senha === "2604") {
+      document.querySelector(".login-container").style.display = "none"; // Oculta a tela de login
+      document.querySelector(".container").style.display = "block"; // Exibe o sistema de controle financeiro
+      carregarConfiguracoesFirebase();
+    } else {
+      document.getElementById("error-message").textContent = "Senha incorreta!";
+    }
+  });
 
   function formatarValor(valor) {
     return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(valor);
@@ -175,49 +247,49 @@
     return set(newTransacaoRef, transacao);
   }
 
- function carregarTransacoes(ano, mes) {
-  const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes);
-  onValue(transacoesRef, (snapshot) => {
-    const transacoes = snapshot.val() || {};
-    const listaOrdenada = Object.entries(transacoes)
-      .map(([key, value]) => ({ key, ...value }))
-      .sort((a, b) => new Date(a.data) - new Date(b.data)); // <-- ordenação por data
+  function carregarTransacoes(ano, mes) {
+    const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes);
+    onValue(transacoesRef, (snapshot) => {
+      const transacoes = snapshot.val() || {};
+      const listaOrdenada = Object.entries(transacoes)
+        .map(([key, value]) => ({ key, ...value }))
+        .sort((a, b) => new Date(a.data) - new Date(b.data)); // <-- ordenação por data
 
-    let receitasTotal = 0;
-    let despesasTotal = 0;
-    const tabela = document.getElementById("tabela-transacoes");
-    tabela.innerHTML = "";
+      let receitasTotal = 0;
+      let despesasTotal = 0;
+      const tabela = document.getElementById("tabela-transacoes");
+      tabela.innerHTML = "";
 
-    for (let transacao of listaOrdenada) {
-      const row = tabela.insertRow();
-      const dataFormatada = formatDate(transacao.data);
-      const valorReceita = transacao.tipo === "receita" ? transacao.valor : 0;
-      const valorDespesa = transacao.tipo === "despesa" ? transacao.valor : 0;
-      receitasTotal += valorReceita;
-      despesasTotal += valorDespesa;
-      row.innerHTML = `
-        <td>${dataFormatada}</td>
-        <td>${transacao.descricao}</td>
-        <td>${transacao.categoria}</td>
-        <td>${valorReceita ? formatarValor(valorReceita) : ""}</td>
-        <td>${valorDespesa ? formatarValor(valorDespesa) : ""}</td>
-        <td>${formatarValor(valorReceita - valorDespesa)}</td>
-        <td>
-          <button onclick="editarTransacao('${ano}', '${mes}', '${transacao.key}')">\u270F\ufe0f</button>
-          <button onclick="deletarTransacao('${ano}', '${mes}', '${transacao.key}')">\uD83D\uDDD1\uFE0F</button>
-        </td>
-      `;
-    }
+      for (let transacao of listaOrdenada) {
+        const row = tabela.insertRow();
+        const dataFormatada = formatDate(transacao.data);
+        const valorReceita = transacao.tipo === "receita" ? transacao.valor : 0;
+        const valorDespesa = transacao.tipo === "despesa" ? transacao.valor : 0;
+        receitasTotal += valorReceita;
+        despesasTotal += valorDespesa;
+        row.innerHTML = `
+          <td>${dataFormatada}</td>
+          <td>${transacao.descricao}</td>
+          <td>${transacao.categoria}</td>
+          <td>${valorReceita ? formatarValor(valorReceita) : ""}</td>
+          <td>${valorDespesa ? formatarValor(valorDespesa) : ""}</td>
+          <td>${formatarValor(valorReceita - valorDespesa)}</td>
+          <td>
+            <button onclick="editarTransacao('${ano}', '${mes}', '${transacao.key}')">\u270F\ufe0f</button>
+            <button onclick="deletarTransacao('${ano}', '${mes}', '${transacao.key}')">\uD83D\uDDD1\uFE0F</button>
+          </td>
+        `;
+      }
 
-    const saldo = receitasTotal - despesasTotal;
-    document.getElementById("totalReceitas").textContent = `Total Receitas: ${formatarValor(receitasTotal)}`;
-    document.getElementById("totalDespesas").textContent = `Total Despesas: ${formatarValor(despesasTotal)}`;
-    document.getElementById("totalSaldo").textContent = `Saldo: ${formatarValor(saldo)}`;
-    document.getElementById("totalDespesasFooter").textContent = formatarValor(despesasTotal);
-    document.getElementById("totalDisponivelFooter").textContent = formatarValor(saldo);
-  });
-}
-
+      const saldo = receitasTotal - despesasTotal;
+      document.getElementById("totalReceitas").textContent = `Total Receitas: ${formatarValor(receitasTotal)}`;
+      document.getElementById("totalDespesas").textContent = `Total Despesas: ${formatarValor(despesasTotal)}`;
+      document.getElementById("totalSaldo").textContent = `Saldo: ${formatarValor(saldo)}`;
+document.getElementById("totalReceitasFooter").textContent = formatarValor(receitasTotal);
+      document.getElementById("totalDespesasFooter").textContent = formatarValor(despesasTotal);
+      document.getElementById("totalDisponivelFooter").textContent = formatarValor(saldo);
+    });
+  }
 
   function salvarConfiguracoesFirebase(ano, mes) {
     const usuarioId = "usuario1";
@@ -241,67 +313,19 @@
     });
   }
 
-  document.getElementById("ano").addEventListener("change", () => {
-    const ano = document.getElementById("ano").value;
-    const mes = document.getElementById("mes").value;
-    gerarDias(mes, ano);
-    carregarTransacoes(ano, mes);
-    salvarConfiguracoesFirebase(ano, mes);
-  });
-
-  document.getElementById("mes").addEventListener("change", () => {
-    const ano = document.getElementById("ano").value;
-    const mes = document.getElementById("mes").value;
-    gerarDias(mes, ano);
-    carregarTransacoes(ano, mes);
-    salvarConfiguracoesFirebase(ano, mes);
-  });
-
-  document.getElementById("form-transacao").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const ano = document.getElementById("ano").value;
-    const mes = document.getElementById("mes").value;
-    const dia = document.getElementById("dia").value;
-    const tipo = document.getElementById("tipo").value;
-    const descricao = document.getElementById("descricao").value;
-    const valor = parseFloat(document.getElementById("valor").value);
-    const categoria = document.getElementById("categoria").value;
-    if (!descricao || isNaN(valor) || valor <= 0 || !categoria) {
-      alert("Preencha todos os campos corretamente.");
-      return;
-    }
-    const data = new Date(ano, mes - 1, dia);
-    const transacao = { tipo, descricao, valor, categoria, data: data.toISOString() };
-    const edicaoId = this.dataset.edicaoId;
-    if (edicaoId) {
-      const transacaoRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + edicaoId);
-      set(transacaoRef, transacao).then(() => {
-        delete this.dataset.edicaoId;
-        carregarTransacoes(ano, mes);
-        this.reset();
-      });
-    } else {
-      salvarTransacaoNoFirebase(ano, mes, transacao).then(() => {
-        carregarTransacoes(ano, mes);
-        this.reset();
-      });
-    }
-  });
-
   window.editarTransacao = function (ano, mes, key) {
     const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + key);
     onValue(transacoesRef, (snapshot) => {
       const transacao = snapshot.val();
       if (transacao) {
-        document.getElementById("tipo").value = transacao.tipo;
         document.getElementById("descricao").value = transacao.descricao;
         document.getElementById("valor").value = transacao.valor;
         document.getElementById("categoria").value = transacao.categoria;
-        const data = new Date(transacao.data);
-        document.getElementById("dia").value = data.getDate();
+        document.getElementById("tipo").value = transacao.tipo;
+        document.getElementById("dia").value = new Date(transacao.data).getDate();
         document.getElementById("form-transacao").dataset.edicaoId = key;
       }
-    }, { onlyOnce: true });
+    });
   };
 
   window.deletarTransacao = function (ano, mes, key) {
@@ -314,6 +338,32 @@
   window.onload = () => {
     carregarConfiguracoesFirebase();
   };
-</script>
+
+document.getElementById("form-transacao").addEventListener("submit", function (e) {
+  e.preventDefault(); // Impede o recarregamento da página
+
+  const ano = document.getElementById("ano").value;
+  const mes = document.getElementById("mes").value;
+  const dia = document.getElementById("dia").value;
+  const tipo = document.getElementById("tipo").value;
+  const descricao = document.getElementById("descricao").value;
+  const valor = parseFloat(document.getElementById("valor").value);
+  const categoria = document.getElementById("categoria").value;
+
+  const data = new Date(ano, mes - 1, dia).toISOString();
+
+  const transacao = {
+    tipo,
+    descricao,
+    valor,
+    categoria,
+    data
+  };
+
+  salvarTransacaoNoFirebase(ano, mes, transacao).then(() => {
+    carregarTransacoes(ano, mes);
+    document.getElementById("form-transacao").reset();
+  });
+});</script>
 </body>
 </html>
