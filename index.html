@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Controle financeiro - FAMÍLIA ROSA</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Controle financeiro - FAMÍLIA ROSA</title>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -97,108 +98,95 @@
   </style>
 </head>
 <body>
-
 <!-- Tela de Login -->
 <div class="login-container" id="login-container">
-  <div class="login-form">
-    <h1>Bem-vindo!</h1>
-    <form id="form-acesso">
-      <label for="senha">Digite a senha:</label>
-      <input type="password" id="senha" placeholder="Senha" required />
-      <button type="submit">Acessar Sistema</button>
-    </form>
-    <div id="error-message" class="error"></div>
-  </div>
+<div class="login-form">
+<h1>Controle de finanças Familia Rosa</h1>
+<form id="form-acesso">
+<label for="senha">Digite a senha:</label>
+<input id="senha" placeholder="Senha" required="" type="password"/>
+<button type="submit">Acessar o Sistema</button>
+</form>
+<div class="error" id="error-message"></div>
 </div>
-
+</div>
 <!-- Sistema (Inicialmente oculto) -->
 <div class="container" id="container" style="display: none;">
-  <header>
-    <h1>Controle financeiro - FAMÍLIA ROSA</h1>
-  </header>
-
-  <div class="filters">
-    <select id="ano">
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-      <option value="2027">2027</option>
-    </select>
-    <select id="mes">
-      <option value="1">Janeiro</option>
-      <option value="2">Fevereiro</option>
-      <option value="3">Março</option>
-      <option value="4">Abril</option>
-      <option value="5">Maio</option>
-      <option value="6">Junho</option>
-      <option value="7">Julho</option>
-      <option value="8">Agosto</option>
-      <option value="9">Setembro</option>
-      <option value="10">Outubro</option>
-      <option value="11">Novembro</option>
-      <option value="12">Dezembro</option>
-    </select>
-  </div>
-
-  <div class="dashboard">
-    <div class="add-transaction">
-      <h2>Adicionar Transação</h2>
-      <form id="form-transacao">
-        <label for="tipo">Tipo</label>
-        <select id="tipo" name="tipo">
-          <option value="receita">Receita</option>
-          <option value="despesa">Despesa</option>
-        </select>
-        <label for="descricao">Descrição</label>
-        <input type="text" id="descricao" required />
-        <label for="valor">Valor</label>
-        <input type="number" id="valor" step="0.01" min="0" required />
-        <label for="categoria">Categoria</label>
-        <input type="text" id="categoria" required />
-        <label for="dia">Dia</label>
-        <select id="dia"></select>
-        <button type="submit">Adicionar</button>
-      </form>
-    </div>
-
-    <div class="summary">
-      <h2>Resumo Financeiro</h2>
-      <div id="totalSaldo">Saldo: R$ 0,00</div>
-      <div id="totalReceitas">Total Receitas: R$ 0,00</div>
-      <div id="totalDespesas">Total Despesas: R$ 0,00</div>
-    </div>
-  </div>
-
-  <div class="charts">
-    <h2>Transações</h2>
-    <table class="transactions-table">
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
-          <th>Receita</th>
-          <th>Despesa</th>
-          <th>Disponível</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="tabela-transacoes"></tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4"><strong>Total</strong></td>
-          <td id="totalDespesasFooter">R$ 0,00</td>
-          <td id="totalDisponivelFooter">R$ 0,00</td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Controle de Finanças</p>
-  </footer>
+<header>
+<h1>Controle financeiro - FAMÍLIA ROSA</h1>
+</header>
+<div class="filters">
+<select id="ano">
+<option value="2025">2025</option>
+<option value="2026">2026</option>
+<option value="2027">2027</option>
+</select>
+<select id="mes">
+<option value="1">Janeiro</option>
+<option value="2">Fevereiro</option>
+<option value="3">Março</option>
+<option value="4">Abril</option>
+<option value="5">Maio</option>
+<option value="6">Junho</option>
+<option value="7">Julho</option>
+<option value="8">Agosto</option>
+<option value="9">Setembro</option>
+<option value="10">Outubro</option>
+<option value="11">Novembro</option>
+<option value="12">Dezembro</option>
+</select>
 </div>
-
+<div class="dashboard">
+<div class="add-transaction">
+<h2>Adicionar Transação</h2>
+<form id="form-transacao">
+<label for="tipo">Tipo</label>
+<select id="tipo" name="tipo">
+<option value="receita">Receita</option>
+<option value="despesa">Despesa</option>
+</select>
+<label for="descricao">Descrição</label>
+<input id="descricao" required="" type="text"/>
+<label for="valor">Valor</label>
+<input id="valor" min="0" required="" step="0.01" type="number"/>
+<label for="categoria">Categoria</label>
+<input id="categoria" required="" type="text"/>
+<label for="dia">Dia</label>
+<select id="dia"></select>
+<button type="submit">Adicionar</button>
+</form>
+</div>
+<div class="summary">
+<h2>Resumo Financeiro</h2>
+<div id="totalSaldo">Saldo: R$ 0,00</div>
+<div id="totalReceitas">Total Receitas: R$ 0,00</div>
+<div id="totalDespesas">Total Despesas: R$ 0,00</div>
+</div>
+</div>
+<div class="charts">
+<h2>Transações</h2>
+<table class="transactions-table">
+<thead>
+<tr>
+<th>Data</th>
+<th>Descrição</th>
+<th>Categoria</th>
+<th>Receita</th>
+<th>Despesa</th>
+<th>Disponível</th>
+<th>Ações</th>
+</tr>
+</thead>
+<tbody id="tabela-transacoes"></tbody>
+<tfoot>
+<tr><td colspan="3">Total</td><td id="totalReceitasFooter">R$ 0,00</td><td id="totalDespesasFooter">R$ 0,00</td><td id="totalDisponivelFooter">R$ 0,00</td><td></td></tr>
+</tfoot>
+</table>
+</div>
+<footer>
+<p>© 2025 Controle de Finanças</p>
+</footer>
+</div>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
   import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
@@ -297,6 +285,7 @@
       document.getElementById("totalReceitas").textContent = `Total Receitas: ${formatarValor(receitasTotal)}`;
       document.getElementById("totalDespesas").textContent = `Total Despesas: ${formatarValor(despesasTotal)}`;
       document.getElementById("totalSaldo").textContent = `Saldo: ${formatarValor(saldo)}`;
+document.getElementById("totalReceitasFooter").textContent = formatarValor(receitasTotal);
       document.getElementById("totalDespesasFooter").textContent = formatarValor(despesasTotal);
       document.getElementById("totalDisponivelFooter").textContent = formatarValor(saldo);
     });
@@ -349,7 +338,32 @@
   window.onload = () => {
     carregarConfiguracoesFirebase();
   };
-</script>
 
+document.getElementById("form-transacao").addEventListener("submit", function (e) {
+  e.preventDefault(); // Impede o recarregamento da página
+
+  const ano = document.getElementById("ano").value;
+  const mes = document.getElementById("mes").value;
+  const dia = document.getElementById("dia").value;
+  const tipo = document.getElementById("tipo").value;
+  const descricao = document.getElementById("descricao").value;
+  const valor = parseFloat(document.getElementById("valor").value);
+  const categoria = document.getElementById("categoria").value;
+
+  const data = new Date(ano, mes - 1, dia).toISOString();
+
+  const transacao = {
+    tipo,
+    descricao,
+    valor,
+    categoria,
+    data
+  };
+
+  salvarTransacaoNoFirebase(ano, mes, transacao).then(() => {
+    carregarTransacoes(ano, mes);
+    document.getElementById("form-transacao").reset();
+  });
+});</script>
 </body>
 </html>
