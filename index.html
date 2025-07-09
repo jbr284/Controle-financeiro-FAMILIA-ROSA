@@ -186,18 +186,20 @@
   </footer>
 </div>
 
+<!-- ... (parte do código permanece a mesma até o <script>) -->
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
   import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
   const firebaseConfig = {
-  apiKey: "AIzaSyBqrTNZEHAN64fmfWvA4ctFTHshTWubEgY",
-  authDomain: "controle-financeiro-dos-rosa.firebaseapp.com",
-  databaseURL: "https://controle-financeiro-dos-rosa-default-rtdb.firebaseio.com",
-  projectId: "controle-financeiro-dos-rosa",
-  storageBucket: "controle-financeiro-dos-rosa.firebasestorage.app",
-  messagingSenderId: "855399792154",
-  appId: "1:855399792154:web:f4820d16c555798ddd1ba3"
+    apiKey: "Sua_Keys",
+    authDomain: "controle-financeiro-dos-rosa.firebaseapp.com",
+    databaseURL: "https://controle-financeiro-dos-rosa-default-rtdb.firebaseio.com/",
+    projectId: "controle-financeiro-dos-rosa",
+    storageBucket: "controle-financeiro-dos-rosa.appspot.com",
+    messagingSenderId: "855399792154",
+    appId: "1:855399792154:web:f4820d16c555798ddd1ba3"
   };
 
   const app = initializeApp(firebaseConfig);
@@ -208,8 +210,8 @@
     e.preventDefault();
     const senha = document.getElementById("senha").value;
     if (senha === "2604") {
-      document.querySelector(".login-container").style.display = "none"; // Oculta a tela de login
-      document.querySelector(".container").style.display = "block"; // Exibe o sistema de controle financeiro
+      document.querySelector(".login-container").style.display = "none";
+      document.querySelector(".container").style.display = "block";
       carregarConfiguracoesFirebase();
     } else {
       document.getElementById("error-message").textContent = "Senha incorreta!";
@@ -252,7 +254,7 @@
       const transacoes = snapshot.val() || {};
       const listaOrdenada = Object.entries(transacoes)
         .map(([key, value]) => ({ key, ...value }))
-        .sort((a, b) => new Date(a.data) - new Date(b.data)); // <-- ordenação por data
+        .sort((a, b) => new Date(a.data) - new Date(b.data));
 
       let receitasTotal = 0;
       let despesasTotal = 0;
@@ -312,12 +314,22 @@
     });
   }
 
-  // Adicionando evento para o select do mês
+  // 🔄 Agora salvando também ao mudar o ANO
+  document.getElementById("ano").addEventListener("change", function () {
+    const ano = document.getElementById("ano").value;
+    const mes = document.getElementById("mes").value;
+    gerarDias(mes, ano);
+    carregarTransacoes(ano, mes);
+    salvarConfiguracoesFirebase(ano, mes); // Salva nova seleção
+  });
+
+  // 🔄 E também ao mudar o MÊS
   document.getElementById("mes").addEventListener("change", function () {
     const ano = document.getElementById("ano").value;
     const mes = document.getElementById("mes").value;
-    gerarDias(mes, ano); // Atualiza os dias com base no novo mês
-    carregarTransacoes(ano, mes); // Recarrega as transações para o novo mês
+    gerarDias(mes, ano);
+    carregarTransacoes(ano, mes);
+    salvarConfiguracoesFirebase(ano, mes); // Salva nova seleção
   });
 
   window.editarTransacao = function (ano, mes, key) {
@@ -347,7 +359,7 @@
   };
 
   document.getElementById("form-transacao").addEventListener("submit", function (e) {
-    e.preventDefault(); // Impede o recarregamento da página
+    e.preventDefault();
 
     const ano = document.getElementById("ano").value;
     const mes = document.getElementById("mes").value;
@@ -373,5 +385,3 @@
     });
   });
 </script>
-</body>
-</html>
