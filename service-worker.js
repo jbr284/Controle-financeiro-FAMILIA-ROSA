@@ -5,8 +5,8 @@ const urlsToCache = [
   '/index.html',
   '/css/style.css', // Se houver
   '/js/script.js',  // Se houver
-  '/images/icon-192x192.png',
-  '/images/icon-512x512.png',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
   // Adicione aqui outros arquivos que você deseja cachear
 ];
 
