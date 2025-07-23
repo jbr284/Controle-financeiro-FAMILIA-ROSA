@@ -2,8 +2,9 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Controle financeiro - FAMÍLIA ROSA</title>
+  <link rel="manifest" href="manifest.json">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -12,10 +13,9 @@
       background-color: #f9f9f9;
       color: #333;
       padding: 20px;
-      padding-bottom: 60px; /* evita que o footer cubra o conteúdo */
+      padding-bottom: 60px;
     }
 
-    /* Tela de Login */
     .login-container {
       display: flex;
       justify-content: center;
@@ -63,27 +63,89 @@
       margin-top: 10px;
     }
 
-    header { 
-      background-color: #4CAF50; 
-      color: white; 
-      text-align: center; 
-      padding: 20px; 
-      text-transform: uppercase; 
+    header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      text-transform: uppercase;
     }
 
-    .filters { display: flex; justify-content: space-between; margin: 20px 0; gap: 10px; }
-    .filters select { padding: 10px; border-radius: 4px; border: 1px solid #ddd; flex: 1; max-width: 120px; }
-    .dashboard { display: flex; justify-content: space-between; padding: 20px; }
-    .add-transaction, .summary { width: 48%; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-    .add-transaction form { display: flex; flex-direction: column; }
-    .add-transaction label, .add-transaction input, .add-transaction select, .add-transaction button { margin-bottom: 10px; }
-    .add-transaction input, .add-transaction select, .add-transaction button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-    .add-transaction button { background-color: #4CAF50; color: white; cursor: pointer; }
-    .add-transaction button:hover { background-color: #45a049; }
-    .transactions-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-    .transactions-table th, .transactions-table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
-    .transactions-table th { background-color: #4CAF50; color: white; }
-    .transactions-table td { background-color: #f9f9f9; }
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      gap: 10px;
+    }
+
+    .filters select {
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      flex: 1;
+      max-width: 120px;
+    }
+
+    .dashboard {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .add-transaction, .summary {
+      width: 48%;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .add-transaction form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .add-transaction label, .add-transaction input, .add-transaction select, .add-transaction button {
+      margin-bottom: 10px;
+    }
+
+    .add-transaction input, .add-transaction select, .add-transaction button {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .add-transaction button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    .add-transaction button:hover {
+      background-color: #45a049;
+    }
+
+    .transactions-table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .transactions-table th, .transactions-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    .transactions-table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .transactions-table td {
+      background-color: #f9f9f9;
+    }
+
     footer {
       text-align: center;
       padding: 10px;
@@ -94,26 +156,25 @@
       bottom: 0;
     }
   </style>
-  <link rel="manifest" href="manifest.json">
 </head>
 <body>
-<!-- Tela de Login -->
 <div class="login-container" id="login-container">
   <div class="login-form">
-    <h1>Controle de finanças Familia Rosa</h1>
+    <h1>Controle de finanças Família Rosa</h1>
     <form id="form-acesso">
       <label for="senha">Digite a senha:</label>
-      <input id="senha" placeholder="Senha" required="" type="password"/>
+      <input id="senha" type="password" placeholder="Senha" required />
       <button type="submit">Acessar o Sistema</button>
     </form>
     <div class="error" id="error-message"></div>
   </div>
 </div>
-<!-- Sistema (Inicialmente oculto) -->
+
 <div class="container" id="container" style="display: none;">
   <header>
     <h1>Controle financeiro - FAMÍLIA ROSA</h1>
   </header>
+
   <div class="filters">
     <select id="ano">
       <option value="2025">2025</option>
@@ -135,6 +196,7 @@
       <option value="12">Dezembro</option>
     </select>
   </div>
+
   <div class="dashboard">
     <div class="add-transaction">
       <h2>Adicionar Transação</h2>
@@ -145,16 +207,17 @@
           <option value="despesa">Despesa</option>
         </select>
         <label for="descricao">Descrição</label>
-        <input id="descricao" required="" type="text"/>
+        <input id="descricao" type="text" required />
         <label for="valor">Valor</label>
-        <input id="valor" min="0" required="" step="0.01" type="number"/>
+        <input id="valor" type="number" min="0" step="0.01" required />
         <label for="categoria">Categoria</label>
-        <input id="categoria" required="" type="text"/>
+        <input id="categoria" type="text" required />
         <label for="dia">Dia</label>
         <select id="dia"></select>
         <button type="submit">Adicionar</button>
       </form>
     </div>
+
     <div class="summary">
       <h2>Resumo Financeiro</h2>
       <div id="totalSaldo">Saldo: R$ 0,00</div>
@@ -162,6 +225,7 @@
       <div id="totalDespesas">Total Despesas: R$ 0,00</div>
     </div>
   </div>
+
   <div class="charts">
     <h2>Transações</h2>
     <table class="transactions-table">
@@ -178,16 +242,21 @@
       </thead>
       <tbody id="tabela-transacoes"></tbody>
       <tfoot>
-        <tr><td colspan="3">Total</td><td id="totalReceitasFooter">R$ 0,00</td><td id="totalDespesasFooter">R$ 0,00</td><td id="totalDisponivelFooter">R$ 0,00</td><td></td></tr>
+        <tr>
+          <td colspan="3">Total</td>
+          <td id="totalReceitasFooter">R$ 0,00</td>
+          <td id="totalDespesasFooter">R$ 0,00</td>
+          <td id="totalDisponivelFooter">R$ 0,00</td>
+          <td></td>
+        </tr>
       </tfoot>
     </table>
   </div>
+
   <footer>
     <p>© 2025 Controle de Finanças</p>
   </footer>
 </div>
-
-<!-- ... (parte do código permanece a mesma até o <script>) -->
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -206,7 +275,6 @@
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
 
-  // Função para login
   document.getElementById("form-acesso").addEventListener("submit", function (e) {
     e.preventDefault();
     const senha = document.getElementById("senha").value;
@@ -244,64 +312,60 @@
   }
 
   function salvarTransacaoNoFirebase(ano, mes, transacao) {
-    const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes);
+    const transacoesRef = ref(database, `transacoes/${ano}/${mes}`);
     const newTransacaoRef = push(transacoesRef);
     return set(newTransacaoRef, transacao);
   }
 
   function carregarTransacoes(ano, mes) {
-    const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes);
+    const transacoesRef = ref(database, `transacoes/${ano}/${mes}`);
     onValue(transacoesRef, (snapshot) => {
       const transacoes = snapshot.val() || {};
-      const listaOrdenada = Object.entries(transacoes)
-        .map(([key, value]) => ({ key, ...value }))
+      const lista = Object.entries(transacoes).map(([key, value]) => ({ key, ...value }))
         .sort((a, b) => new Date(a.data) - new Date(b.data));
 
-      let receitasTotal = 0;
-      let despesasTotal = 0;
+      let receitas = 0;
+      let despesas = 0;
       const tabela = document.getElementById("tabela-transacoes");
       tabela.innerHTML = "";
 
-      for (let transacao of listaOrdenada) {
+      for (let t of lista) {
         const row = tabela.insertRow();
-        const dataFormatada = formatDate(transacao.data);
-        const valorReceita = transacao.tipo === "receita" ? transacao.valor : 0;
-        const valorDespesa = transacao.tipo === "despesa" ? transacao.valor : 0;
-        receitasTotal += valorReceita;
-        despesasTotal += valorDespesa;
+        const receita = t.tipo === "receita" ? t.valor : 0;
+        const despesa = t.tipo === "despesa" ? t.valor : 0;
+        receitas += receita;
+        despesas += despesa;
+
         row.innerHTML = `
-          <td>${dataFormatada}</td>
-          <td>${transacao.descricao}</td>
-          <td>${transacao.categoria}</td>
-          <td>${valorReceita ? formatarValor(valorReceita) : ""}</td>
-          <td>${valorDespesa ? formatarValor(valorDespesa) : ""}</td>
-          <td>${formatarValor(valorReceita - valorDespesa)}</td>
+          <td>${formatDate(t.data)}</td>
+          <td>${t.descricao}</td>
+          <td>${t.categoria}</td>
+          <td>${receita ? formatarValor(receita) : ""}</td>
+          <td>${despesa ? formatarValor(despesa) : ""}</td>
+          <td>${formatarValor(receita - despesa)}</td>
           <td>
-            <button onclick="editarTransacao('${ano}', '${mes}', '${transacao.key}')">\u270F\ufe0f</button>
-            <button onclick="deletarTransacao('${ano}', '${mes}', '${transacao.key}')">\uD83D\uDDD1\uFE0F</button>
+            <button onclick="editarTransacao('${ano}', '${mes}', '${t.key}')">✏️</button>
+            <button onclick="deletarTransacao('${ano}', '${mes}', '${t.key}')">🗑️</button>
           </td>
         `;
       }
 
-      const saldo = receitasTotal - despesasTotal;
-      document.getElementById("totalReceitas").textContent = `Total Receitas: ${formatarValor(receitasTotal)}`;
-      document.getElementById("totalDespesas").textContent = `Total Despesas: ${formatarValor(despesasTotal)}`;
+      const saldo = receitas - despesas;
+      document.getElementById("totalReceitas").textContent = `Total Receitas: ${formatarValor(receitas)}`;
+      document.getElementById("totalDespesas").textContent = `Total Despesas: ${formatarValor(despesas)}`;
       document.getElementById("totalSaldo").textContent = `Saldo: ${formatarValor(saldo)}`;
-      document.getElementById("totalReceitasFooter").textContent = formatarValor(receitasTotal);
-      document.getElementById("totalDespesasFooter").textContent = formatarValor(despesasTotal);
+      document.getElementById("totalReceitasFooter").textContent = formatarValor(receitas);
+      document.getElementById("totalDespesasFooter").textContent = formatarValor(despesas);
       document.getElementById("totalDisponivelFooter").textContent = formatarValor(saldo);
     });
   }
 
   function salvarConfiguracoesFirebase(ano, mes) {
-    const usuarioId = "usuario1";
-    const refConfiguracoes = ref(database, "configuracoes/" + usuarioId);
-    set(refConfiguracoes, { ano, mes });
+    set(ref(database, `configuracoes/usuario1`), { ano, mes });
   }
 
   function carregarConfiguracoesFirebase() {
-    const usuarioId = "usuario1";
-    const refConfiguracoes = ref(database, "configuracoes/" + usuarioId);
+    const refConfiguracoes = ref(database, `configuracoes/usuario1`);
     onValue(refConfiguracoes, (snapshot) => {
       const config = snapshot.val();
       if (config) {
@@ -315,26 +379,24 @@
     });
   }
 
-  // 🔄 Agora salvando também ao mudar o ANO
-  document.getElementById("ano").addEventListener("change", function () {
+  document.getElementById("ano").addEventListener("change", () => {
     const ano = document.getElementById("ano").value;
     const mes = document.getElementById("mes").value;
     gerarDias(mes, ano);
     carregarTransacoes(ano, mes);
-    salvarConfiguracoesFirebase(ano, mes); // Salva nova seleção
+    salvarConfiguracoesFirebase(ano, mes);
   });
 
-  // 🔄 E também ao mudar o MÊS
-  document.getElementById("mes").addEventListener("change", function () {
+  document.getElementById("mes").addEventListener("change", () => {
     const ano = document.getElementById("ano").value;
     const mes = document.getElementById("mes").value;
     gerarDias(mes, ano);
     carregarTransacoes(ano, mes);
-    salvarConfiguracoesFirebase(ano, mes); // Salva nova seleção
+    salvarConfiguracoesFirebase(ano, mes);
   });
 
   window.editarTransacao = function (ano, mes, key) {
-    const transacoesRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + key);
+    const transacoesRef = ref(database, `transacoes/${ano}/${mes}/${key}`);
     onValue(transacoesRef, (snapshot) => {
       const transacao = snapshot.val();
       if (transacao) {
@@ -344,19 +406,15 @@
         document.getElementById("tipo").value = transacao.tipo;
         document.getElementById("dia").value = new Date(transacao.data).getDate();
         document.getElementById("form-transacao").dataset.edicaoId = key;
+        document.querySelector(".add-transaction button").textContent = "Salvar Edição";
       }
     });
   };
 
   window.deletarTransacao = function (ano, mes, key) {
-    if (confirm("Tem certeza que deseja excluir esta transação?")) {
-      const transacaoRef = ref(database, "transacoes/" + ano + "/" + mes + "/" + key);
-      set(transacaoRef, null);
+    if (confirm("Deseja realmente excluir esta transação?")) {
+      set(ref(database, `transacoes/${ano}/${mes}/${key}`), null);
     }
-  };
-
-  window.onload = () => {
-    carregarConfiguracoesFirebase();
   };
 
   document.getElementById("form-transacao").addEventListener("submit", function (e) {
@@ -369,34 +427,40 @@
     const descricao = document.getElementById("descricao").value;
     const valor = parseFloat(document.getElementById("valor").value);
     const categoria = document.getElementById("categoria").value;
-
     const data = new Date(ano, mes - 1, dia).toISOString();
 
-    const transacao = {
-      tipo,
-      descricao,
-      valor,
-      categoria,
-      data
-    };
+    const transacao = { tipo, descricao, valor, categoria, data };
+    const form = document.getElementById("form-transacao");
+    const edicaoId = form.dataset.edicaoId;
+    const botao = document.querySelector(".add-transaction button");
 
-    salvarTransacaoNoFirebase(ano, mes, transacao).then(() => {
-      carregarTransacoes(ano, mes);
-      document.getElementById("form-transacao").reset();
-    });
+    if (edicaoId) {
+      const refEdicao = ref(database, `transacoes/${ano}/${mes}/${edicaoId}`);
+      set(refEdicao, transacao).then(() => {
+        carregarTransacoes(ano, mes);
+        form.reset();
+        delete form.dataset.edicaoId;
+        botao.textContent = "Adicionar";
+      });
+    } else {
+      salvarTransacaoNoFirebase(ano, mes, transacao).then(() => {
+        carregarTransacoes(ano, mes);
+        form.reset();
+      });
+    }
   });
+
+  window.onload = () => {
+    carregarConfiguracoesFirebase();
+  };
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registrado com sucesso:', registration);
-        })
-        .catch(error => {
-          console.log('Erro ao registrar o Service Worker:', error);
-        });
+        .then(reg => console.log("Service Worker registrado:", reg))
+        .catch(err => console.error("Erro ao registrar Service Worker:", err));
     });
   }
 </script>
-
-</script>
+</body>
+</html>
